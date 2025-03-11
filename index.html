@@ -1,1 +1,126 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuroyami.de - Minecraft Server</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=VT323&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+@font-face {
+font-family: 'Minecraft';
+src: url('https://db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.woff2') format('woff2');
+}
+.minecraft-font { font-family: 'Minecraft', 'VT323', monospace; }
+.minecraft-button {
+background: linear-gradient(to bottom, #9e9e9e 0%, #757575 100%);
+border: 2px solid #424242;
+box-shadow: inset 0 0 0 2px rgba(255,255,255,0.3);
+transition: all 0.2s ease;
+}
+.minecraft-button:hover {
+background: linear-gradient(to bottom, #bdbdbd 0%, #9e9e9e 100%);
+transform: translateY(-2px);
+}
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#4CAF50',
+secondary: '#795548'
+},
+borderRadius: {
+'none': '0px',
+'sm': '4px',
+DEFAULT: '8px',
+'md': '12px',
+'lg': '16px',
+'xl': '20px',
+'2xl': '24px',
+'3xl': '32px',
+'full': '9999px',
+'button': '8px'
+}
+}
+}
+}
+</script>
+</head>
+<body class="min-h-screen bg-[#f5f5f5] flex flex-col items-center">
+<header class="w-full py-6 bg-white shadow-sm">
+<h1 class="text-4xl text-center minecraft-font text-primary">Kuroyami.de</h1>
+</header>
+<main class="flex-1 w-full max-w-6xl px-4 py-12 flex flex-col items-center">
+<div class="relative w-full max-w-3xl aspect-[16/9] group cursor-pointer" onclick="showServerInfo()">
+<img src="https://static.readdy.ai/image/dea427ca1692e30cfda5f7e57eb01be4/dc8f97f271e1ae2e602044161c6e5d8d.jpeg"
+alt="Minecraft Players"
+class="w-full h-full object-cover rounded-lg shadow-xl">
+<div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-lg transition-all group-hover:bg-opacity-50">
+<span class="minecraft-font text-6xl text-white shadow-lg">Click for IP</span>
+</div>
+</div>
+</main>
+<div id="serverInfo" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+<div class="bg-white p-8 rounded-lg shadow-2xl max-w-lg w-full mx-4">
+<div class="flex justify-between items-center mb-6">
+<h2 class="minecraft-font text-2xl">Server Information</h2>
+<button onclick="closeServerInfo()" class="text-gray-500 hover:text-gray-700">
+<i class="ri-close-line ri-2x"></i>
+</button>
+</div>
+<div class="space-y-6">
+<div class="bg-gray-100 p-4 rounded-lg">
+<h3 class="minecraft-font text-xl mb-2">Bedrock Edition</h3>
+<div class="flex items-center gap-4">
+<span class="font-mono">82.29.5.19:30001</span>
+<button onclick="copyToClipboard('82.29.5.19:30001')" class="minecraft-button px-4 py-2 rounded-button text-white">
+Copy IP
+</button>
+</div>
+</div>
+<div class="bg-gray-100 p-4 rounded-lg">
+<h3 class="minecraft-font text-xl mb-2">Java Edition</h3>
+<div class="flex items-center gap-4">
+<span class="font-mono">82.29.5.19:30001</span>
+<button onclick="copyToClipboard('82.29.5.19:30001')" class="minecraft-button px-4 py-2 rounded-button text-white">
+Copy IP
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<footer class="w-full py-6 bg-white shadow-sm mt-auto">
+<p class="text-center text-gray-600">© 2025 Kuroyami.de - All rights reserved</p>
+</footer>
+<script>
+function showServerInfo() {
+document.getElementById('serverInfo').classList.remove('hidden');
+}
+function closeServerInfo() {
+document.getElementById('serverInfo').classList.add('hidden');
+}
+function copyToClipboard(text) {
+navigator.clipboard.writeText(text).then(() => {
+const button = event.target;
+const originalText = button.textContent;
+button.textContent = 'Copied!';
+setTimeout(() => {
+button.textContent = originalText;
+}, 2000);
+});
+}
+document.getElementById('serverInfo').addEventListener('click', (e) => {
+if (e.target === document.getElementById('serverInfo')) {
+closeServerInfo();
+}
+});
+</script>
+</body>
+</html>
