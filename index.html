@@ -81,10 +81,52 @@ class="w-full h-full object-cover rounded-lg shadow-xl">
 </div>
 </div>
 <div class="mt-8 flex flex-col items-center gap-4">
+<button onclick="showInfo()" class="minecraft-button px-8 py-4 rounded-button text-white flex items-center gap-2 text-xl">
+<i class="ri-information-line ri-xl"></i>
+<span class="minecraft-font">Information</span>
+</button>
 <a href="https://discord.gg/kuroyami" target="_blank" class="minecraft-button px-6 py-3 rounded-button text-white flex items-center gap-2">
 <i class="ri-discord-fill ri-xl"></i>
 <span class="minecraft-font">Join our Discord</span>
 </a>
+</div>
+<div id="infoModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+<div class="bg-white p-8 rounded-lg shadow-2xl max-w-2xl w-full mx-4">
+<div class="flex justify-between items-center mb-6">
+<h2 class="minecraft-font text-2xl">Welcome to Kuroyami SMP</h2>
+<button onclick="closeInfo()" class="text-gray-500 hover:text-gray-700">
+<i class="ri-close-line ri-2x"></i>
+</button>
+</div>
+<div class="space-y-6 text-gray-700">
+<p class="leading-relaxed">
+Kuroyami SMP is a thriving, community-driven Minecraft server designed to provide players with a high-quality and enjoyable experience. We pride ourselves on creating a safe and friendly environment where players can build, explore, and thrive together.
+</p>
+<div>
+<h3 class="minecraft-font text-xl mb-2">Key Features of Kuroyami SMP:</h3>
+<ul class="space-y-4">
+<li>
+<strong class="minecraft-font">Robust Economy System:</strong> Our server boasts a well-designed economy system, making trading, resource management, and player-driven markets both engaging and rewarding. Whether you're crafting your own empire or trading with others, our economy ensures every player can thrive.
+</li>
+<li>
+<strong class="minecraft-font">Easy-to-Use Plugins:</strong> Kuroyami SMP uses a variety of plugins to enhance gameplay, making your experience both fun and intuitive. With plugins that are easy to use and enhance the Minecraft experience, you'll always have new features to explore.
+</li>
+<li>
+<strong class="minecraft-font">Strong Anti-Cheat System:</strong> Our advanced anti-cheat system is in place to ensure that all players enjoy a level playing field without the fear of unfair advantages. We take server integrity seriously.
+</li>
+<li>
+<strong class="minecraft-font">Active and Friendly Community:</strong> Kuroyami SMP is home to a vibrant and active player base. Our members are dedicated to creating a positive atmosphere, whether through collaboration, friendly competitions, or simply hanging out. The strong sense of community is what truly sets us apart.
+</li>
+<li>
+<strong class="minecraft-font">Dedicated and Friendly Owners:</strong> The server is run by a group of dedicated owners, including the highly respected Ww1avi, who is committed to maintaining a high standard of gameplay and ensuring the server is always evolving. The owners are approachable, responsive, and genuinely care about the well-being of the server and its players.
+</li>
+</ul>
+<p class="mt-4 leading-relaxed">
+Whether you're a seasoned Minecraft veteran or a newcomer to the game, Kuroyami SMP offers an inclusive and rewarding environment for everyone. Join us today and become part of our growing community!
+</p>
+</div>
+</div>
+</div>
 </div>
 </main>
 <div id="serverInfo" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
@@ -137,6 +179,17 @@ button.textContent = originalText;
 }, 2000);
 });
 }
+function showInfo() {
+document.getElementById('infoModal').classList.remove('hidden');
+}
+function closeInfo() {
+document.getElementById('infoModal').classList.add('hidden');
+}
+document.getElementById('infoModal').addEventListener('click', (e) => {
+if (e.target === document.getElementById('infoModal')) {
+closeInfo();
+}
+});
 document.getElementById('serverInfo').addEventListener('click', (e) => {
 if (e.target === document.getElementById('serverInfo')) {
 closeServerInfo();
