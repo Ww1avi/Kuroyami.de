@@ -81,13 +81,10 @@ class="w-full h-full object-cover rounded-lg shadow-xl">
 </div>
 </div>
 <div class="mt-8 flex flex-col items-center gap-4">
-<button onclick="copyDiscordLink()" class="minecraft-button px-6 py-3 rounded-button text-white flex items-center gap-2">
+<a href="https://discord.gg/kuroyami" target="_blank" class="minecraft-button px-6 py-3 rounded-button text-white flex items-center gap-2">
 <i class="ri-discord-fill ri-xl"></i>
 <span class="minecraft-font">Join our Discord</span>
-</button>
-<div id="discordCopied" class="hidden bg-green-500 text-white px-4 py-2 rounded-lg minecraft-font">
-Discord link copied!
-</div>
+</a>
 </div>
 </main>
 <div id="serverInfo" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
@@ -137,15 +134,6 @@ const originalText = button.textContent;
 button.textContent = 'Copied!';
 setTimeout(() => {
 button.textContent = originalText;
-}, 2000);
-});
-}
-function copyDiscordLink() {
-navigator.clipboard.writeText('https://discord.gg/kuroyami').then(() => {
-const notification = document.getElementById('discordCopied');
-notification.classList.remove('hidden');
-setTimeout(() => {
-notification.classList.add('hidden');
 }, 2000);
 });
 }
