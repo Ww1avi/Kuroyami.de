@@ -69,7 +69,7 @@ DEFAULT: '8px',
 </head>
 <body class="min-h-screen bg-[#f5f5f5] flex flex-col items-center dark">
 <header class="w-full py-6 bg-white shadow-sm">
-<h1 class="text-4xl text-center minecraft-font text-primary">Kuroyami.de</h1>
+<h1 class="text-4xl text-center minecraft-font text-white">Kuroyami.de</h1>
 </header>
 <main class="flex-1 w-full max-w-6xl px-4 py-12 flex flex-col items-center">
 <div class="relative w-full max-w-3xl aspect-[16/9] group cursor-pointer" onclick="showServerInfo()">
@@ -77,17 +77,17 @@ DEFAULT: '8px',
 alt="Minecraft Players"
 class="w-full h-full object-cover rounded-lg shadow-xl">
 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-lg transition-all group-hover:bg-opacity-50">
-<span class="minecraft-font text-3xl text-white shadow-lg">Click for IP</span>
+<span class="minecraft-font text-3xl text-white shadow-lg translate-y-[-50px]">Click for IP</span>
 </div>
 </div>
 <div class="mt-8 flex flex-col items-center gap-4">
-  <button onclick="copyDiscordLink()" class="minecraft-button px-6 py-3 rounded-button text-white flex items-center gap-2">
-    <i class="ri-discord-fill ri-xl"></i>
-    <span class="minecraft-font">Join our Discord</span>
-  </button>
-  <div id="discordCopied" class="hidden bg-green-500 text-white px-4 py-2 rounded-lg minecraft-font">
-    Discord link copied!
-  </div>
+<button onclick="copyDiscordLink()" class="minecraft-button px-6 py-3 rounded-button text-white flex items-center gap-2">
+<i class="ri-discord-fill ri-xl"></i>
+<span class="minecraft-font">Join our Discord</span>
+</button>
+<div id="discordCopied" class="hidden bg-green-500 text-white px-4 py-2 rounded-lg minecraft-font">
+Discord link copied!
+</div>
 </div>
 </main>
 <div id="serverInfo" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
