@@ -3,52 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kuroyami.de - Minecraft Server</title>
+<title>Kuroyami.de Command Interface</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=VT323&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-<style>
-:where([class^="ri-"])::before { content: "\f3c2"; }
-@font-face {
-font-family: 'Minecraft';
-src: url('https://db.onlinewebfonts.com/t/6ab539c6fc2b21ff0b149b3d06d7f97c.woff2') format('woff2');
-}
-.minecraft-font { font-family: 'Minecraft', 'VT323', monospace; }
-.minecraft-button {
-background: linear-gradient(to bottom, #9e9e9e 0%, #757575 100%);
-border: 2px solid #424242;
-box-shadow: inset 0 0 0 2px rgba(255,255,255,0.3);
-transition: all 0.2s ease;
-}
-.minecraft-button:hover {
-background: linear-gradient(to bottom, #bdbdbd 0%, #9e9e9e 100%);
-transform: translateY(-2px);
-}
-body.dark {
-background-color: #1a1a1a;
-color: #ffffff;
-}
-body.dark header,
-body.dark footer {
-background-color: #2d2d2d;
-}
-body.dark #serverInfo > div {
-background-color: #2d2d2d;
-color: #ffffff;
-}
-body.dark .bg-gray-100 {
-background-color: #363636;
-}
-</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
 <script>
 tailwind.config = {
 theme: {
 extend: {
 colors: {
-primary: '#4CAF50',
-secondary: '#795548'
+primary: '#6366f1',
+secondary: '#94a3b8'
 },
 borderRadius: {
 'none': '0px',
@@ -66,135 +30,196 @@ DEFAULT: '8px',
 }
 }
 </script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+@keyframes typewriter {
+from { width: 0; }
+to { width: 100%; }
+}
+@keyframes blink {
+50% { border-color: transparent; }
+}
+@keyframes fadeOut {
+from { opacity: 1; }
+to { opacity: 0; }
+}
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
+}
+.glass {
+backdrop-filter: blur(8px);
+background-color: rgba(255, 255, 255, 0.1);
+}
+.typing-text {
+display: inline-block;
+overflow: hidden;
+border-right: 2px solid #6366f1;
+white-space: nowrap;
+animation:
+typewriter 2s steps(40, end),
+blink 0.75s step-end infinite;
+}
+.fade-text {
+color: #6366f1;
+}
+</style>
 </head>
-<body class="min-h-screen bg-[#f5f5f5] flex flex-col items-center dark">
-<header class="w-full py-6 bg-white shadow-sm">
-<h1 class="text-4xl text-center minecraft-font text-white">Kuroyami.de</h1>
+<body class="min-h-screen bg-black overflow-x-hidden">
+<div class="relative w-full min-h-screen">
+<header class="fixed w-full top-0 z-50 glass">
+<nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+<div class="text-white text-xl font-semibold">Kuroyami.de</div>
+<button id="settingsBtn" class="w-10 h-10 flex items-center justify-center text-gray-800 hover:text-primary transition-colors cursor-pointer">
+<i class="ri-settings-3-line text-2xl"></i>
+</button>
+</nav>
 </header>
-<main class="flex-1 w-full max-w-6xl px-4 py-12 flex flex-col items-center">
-<div class="relative w-full max-w-3xl aspect-[16/9] group cursor-pointer" onclick="showServerInfo()">
-<img src="https://static.readdy.ai/image/dea427ca1692e30cfda5f7e57eb01be4/dc8f97f271e1ae2e602044161c6e5d8d.jpeg"
-alt="Minecraft Players"
-class="w-full h-full object-cover rounded-lg shadow-xl">
-<div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center rounded-lg transition-all group-hover:bg-opacity-50">
-<span class="minecraft-font text-3xl text-white shadow-lg translate-y-[-50px]">Click for IP</span>
+<main class="container mx-auto px-6">
+<section class="h-screen flex flex-col items-center justify-center">
+<div class="text-center mb-8">
+<h1 class="text-4xl font-bold text-white mb-4">
+Discover the <span id="changing-word" class="fade-text">Friendliest</span> Minecraft SMP Server
+</h1>
 </div>
-</div>
-<div class="mt-8 flex flex-col items-center gap-4">
-<button onclick="showInfo()" class="minecraft-button px-8 py-4 rounded-button text-white flex items-center gap-2 text-xl">
-<i class="ri-information-line ri-xl"></i>
-<span class="minecraft-font">Information</span>
+<button id="startNowBtn" class="bg-primary text-white px-8 py-4 rounded-button text-lg font-semibold hover:bg-opacity-90 transition-all transform hover:scale-105 cursor-pointer">
+Start Now
 </button>
-<a href="https://discord.gg/kuroyami" target="_blank" class="minecraft-button px-6 py-3 rounded-button text-white flex items-center gap-2">
-<i class="ri-discord-fill ri-xl"></i>
-<span class="minecraft-font">Join our Discord</span>
-</a>
-</div>
-<div id="infoModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
-<div class="bg-white p-8 rounded-lg shadow-2xl max-w-2xl w-full mx-4">
-<div class="flex justify-between items-center mb-6">
-<h2 class="minecraft-font text-2xl">Welcome to Kuroyami SMP</h2>
-<button onclick="closeInfo()" class="text-gray-500 hover:text-gray-700">
-<i class="ri-close-line ri-2x"></i>
-</button>
-</div>
-<div class="space-y-6 text-gray-700">
-<p class="leading-relaxed">
-Kuroyami SMP is a thriving, community-driven Minecraft server designed to provide players with a high-quality and enjoyable experience. We pride ourselves on creating a safe and friendly environment where players can build, explore, and thrive together.
-</p>
-<div>
-<h3 class="minecraft-font text-xl mb-2">Key Features of Kuroyami SMP:</h3>
-<ul class="space-y-4">
-<li>
-<strong class="minecraft-font">Robust Economy System:</strong> Our server boasts a well-designed economy system, making trading, resource management, and player-driven markets both engaging and rewarding. Whether you're crafting your own empire or trading with others, our economy ensures every player can thrive.
+</section>
+<section id="commandSection" class="min-h-screen pt-24 grid grid-cols-12 gap-8">
+<div class="col-span-3">
+<div class="glass p-6 rounded-lg">
+<h3 class="text-gray-800 font-semibold mb-4">Available Commands</h3>
+<ul class="space-y-3">
+<li class="flex items-center text-gray-700 hover:text-primary cursor-pointer">
+<i class="ri-terminal-line mr-2"></i>/ip
 </li>
-<li>
-<strong class="minecraft-font">Easy-to-Use Plugins:</strong> Kuroyami SMP uses a variety of plugins to enhance gameplay, making your experience both fun and intuitive. With plugins that are easy to use and enhance the Minecraft experience, you'll always have new features to explore.
+<li class="flex items-center text-gray-700 hover:text-primary cursor-pointer">
+<i class="ri-code-line mr-2"></i>/ping
 </li>
-<li>
-<strong class="minecraft-font">Strong Anti-Cheat System:</strong> Our advanced anti-cheat system is in place to ensure that all players enjoy a level playing field without the fear of unfair advantages. We take server integrity seriously.
+<li class="flex items-center text-gray-700 hover:text-primary cursor-pointer">
+<i class="ri-user-line mr-2"></i>/status
 </li>
-<li>
-<strong class="minecraft-font">Active and Friendly Community:</strong> Kuroyami SMP is home to a vibrant and active player base. Our members are dedicated to creating a positive atmosphere, whether through collaboration, friendly competitions, or simply hanging out. The strong sense of community is what truly sets us apart.
-</li>
-<li>
-<strong class="minecraft-font">Dedicated and Friendly Owners:</strong> The server is run by a group of dedicated owners, including the highly respected Ww1avi, who is committed to maintaining a high standard of gameplay and ensuring the server is always evolving. The owners are approachable, responsive, and genuinely care about the well-being of the server and its players.
+<li class="flex items-center text-gray-700 hover:text-primary cursor-pointer">
+<i class="ri-discord-line mr-2"></i>/discord
 </li>
 </ul>
-<p class="mt-4 leading-relaxed">
-Whether you're a seasoned Minecraft veteran or a newcomer to the game, Kuroyami SMP offers an inclusive and rewarding environment for everyone. Join us today and become part of our growing community!
-</p>
+</div>
+</div>
+<div class="col-span-9">
+<div class="glass p-6 rounded-lg mb-6">
+<div id="chatbox" class="h-[500px] overflow-y-auto mb-6 space-y-4">
+<div class="flex items-start">
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white mr-3">
+<i class="ri-robot-line"></i>
+</div>
+<div class="glass p-4 rounded-lg max-w-2xl">
+<p class="text-gray-800">Hello! Welcome to Kuroyami.de command interface. How can I help you today?</p>
 </div>
 </div>
 </div>
+<div class="relative">
+<input type="text" id="commandInput" class="w-full px-4 py-3 pr-12 rounded-lg bg-white bg-opacity-50 border-none focus:ring-2 focus:ring-primary text-gray-800 placeholder-gray-500" placeholder="Type a command...">
+<button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary cursor-pointer">
+<i class="ri-send-plane-line text-xl"></i>
+</button>
 </div>
+</div>
+</div>
+</section>
 </main>
-<div id="serverInfo" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
-<div class="bg-white p-8 rounded-lg shadow-2xl max-w-lg w-full mx-4">
+<div id="settingsModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+<div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 glass rounded-lg p-6">
 <div class="flex justify-between items-center mb-6">
-<h2 class="minecraft-font text-2xl">Server Information</h2>
-<button onclick="closeServerInfo()" class="text-gray-500 hover:text-gray-700">
-<i class="ri-close-line ri-2x"></i>
+<h3 class="text-gray-800 text-xl font-semibold">Settings</h3>
+<button id="closeSettings" class="text-gray-500 hover:text-gray-700 cursor-pointer">
+<i class="ri-close-line text-2xl"></i>
 </button>
 </div>
-<div class="space-y-6">
-<div class="bg-gray-100 p-4 rounded-lg">
-<h3 class="minecraft-font text-xl mb-2">Bedrock Edition</h3>
-<div class="flex items-center gap-4">
-<span class="font-mono">82.29.5.19:30001</span>
-<button onclick="copyToClipboard('82.29.5.19:30001')" class="minecraft-button px-4 py-2 rounded-button text-white">
-Copy IP
-</button>
+<div class="space-y-4">
+<div class="flex items-center justify-between">
+<span class="text-gray-700">Dark Mode</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" class="sr-only peer">
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
 </div>
-</div>
-<div class="bg-gray-100 p-4 rounded-lg">
-<h3 class="minecraft-font text-xl mb-2">Java Edition</h3>
-<div class="flex items-center gap-4">
-<span class="font-mono">82.29.5.19:30001</span>
-<button onclick="copyToClipboard('82.29.5.19:30001')" class="minecraft-button px-4 py-2 rounded-button text-white">
-Copy IP
-</button>
+<div class="flex items-center justify-between">
+<span class="text-gray-700">Notifications</span>
+<label class="relative inline-flex items-center cursor-pointer">
+<input type="checkbox" class="sr-only peer" checked>
+<div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
 </div>
 </div>
 </div>
 </div>
 </div>
-<footer class="w-full py-6 bg-white shadow-sm mt-auto">
-<p class="text-center text-gray-600">© 2025 Kuroyami.de - All rights reserved</p>
-</footer>
 <script>
-function showServerInfo() {
-document.getElementById('serverInfo').classList.remove('hidden');
-}
-function closeServerInfo() {
-document.getElementById('serverInfo').classList.add('hidden');
-}
-function copyToClipboard(text) {
-navigator.clipboard.writeText(text).then(() => {
-const button = event.target;
-const originalText = button.textContent;
-button.textContent = 'Copied!';
+const words = ['Friendliest', 'Funniest', 'Best', 'Actively'];
+let currentIndex = 0;
+function changeWord() {
+const wordElement = document.getElementById('changing-word');
+wordElement.style.animation = 'fadeOut 1s forwards';
 setTimeout(() => {
-button.textContent = originalText;
-}, 2000);
+currentIndex = (currentIndex + 1) % words.length;
+wordElement.textContent = words[currentIndex];
+wordElement.style.animation = 'fadeIn 1s forwards';
+}, 750);
+}
+setInterval(changeWord, 2000);
+document.getElementById('startNowBtn').addEventListener('click', () => {
+document.getElementById('commandSection').scrollIntoView({ behavior: 'smooth' });
 });
+document.getElementById('settingsBtn').addEventListener('click', () => {
+document.getElementById('settingsModal').classList.remove('hidden');
+});
+document.getElementById('closeSettings').addEventListener('click', () => {
+document.getElementById('settingsModal').classList.add('hidden');
+});
+document.getElementById('commandInput').addEventListener('keypress', (e) => {
+if (e.key === 'Enter') {
+const input = e.target.value.trim();
+if (input) {
+appendMessage('user', input);
+processCommand(input);
+e.target.value = '';
 }
-function showInfo() {
-document.getElementById('infoModal').classList.remove('hidden');
-}
-function closeInfo() {
-document.getElementById('infoModal').classList.add('hidden');
-}
-document.getElementById('infoModal').addEventListener('click', (e) => {
-if (e.target === document.getElementById('infoModal')) {
-closeInfo();
 }
 });
-document.getElementById('serverInfo').addEventListener('click', (e) => {
-if (e.target === document.getElementById('serverInfo')) {
-closeServerInfo();
+function appendMessage(sender, message) {
+const chatbox = document.getElementById('chatbox');
+const messageDiv = document.createElement('div');
+messageDiv.className = 'flex items-start';
+const icon = sender === 'user' ? 'ri-user-line' : 'ri-robot-line';
+const bgColor = sender === 'user' ? 'bg-secondary' : 'bg-primary';
+messageDiv.innerHTML = `
+<div class="w-8 h-8 rounded-full ${bgColor} flex items-center justify-center text-white mr-3">
+<i class="${icon}"></i>
+</div>
+<div class="glass p-4 rounded-lg max-w-2xl">
+<p class="text-gray-800">${message}</p>
+</div>
+`;
+chatbox.appendChild(messageDiv);
+chatbox.scrollTop = chatbox.scrollHeight;
 }
-});
+function processCommand(command) {
+setTimeout(() => {
+let response = "I'm sorry, I don't understand that command.";
+if (command.startsWith('/ip')) {
+response = "JAVA EDITION: 82.29.5.19:30001\n\nBEDROCK EDITION:\nServer Address: 82.29.5.19\nPort: 30001";
+} else if (command.startsWith('/ping')) {
+response = "Pong! Response time: 23ms";
+} else if (command.startsWith('/status')) {
+response = "All systems operational. Server uptime: 99.9%";
+} else if (command.startsWith('/discord')) {
+window.location.href = 'https://discord.gg/kuroyami';
+return;
+}
+appendMessage('bot', response);
+}, 500);
+}
 </script>
 </body>
 </html>
